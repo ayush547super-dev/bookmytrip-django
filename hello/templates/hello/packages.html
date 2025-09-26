@@ -1,0 +1,199 @@
+{% extends "hello/base.html" %}
+{% load static %}
+
+{% block title %}Packages • Book My Trip{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'hello/packages.css' %}">
+{% endblock %}
+
+{% block content %}
+ {% include "hello/partials/header.html" %}
+
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1800&auto=format&fit=crop" alt="Holiday destinations collage">
+  <div class="veil"></div>
+  <div class="cap">
+    <h1>International Holiday Packages</h1>
+    <p>17 curated destinations with best deals</p>
+    <span class="sale">Special Deals • Limited Time</span>
+  </div>
+</section>
+
+<main class="container">
+  <section class="section">
+    <h2 class="title">Popular International Deals</h2>
+    <p class="sub">Exclusive packages with curated inclusions</p>
+
+    <div class="grid">
+
+ 
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/6555/Southern%20Paradise%20-%2054130.jpg?downsize=414:200" alt="Thailand">
+        <div class="body"><h3 class="title3">Thailand · 5D/4N</h3><p class="muted">Phuket • Krabi • Island Tours</p>
+        <div class="cta"><span class="price">From ₹29,999</span><a class="enq" href="{% url 'enquiry' %}?package=Thailand%20%C2%B7%205D%2F4N">Enquire</a></div></div>
+      </article>
+
+
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/1993/Aerial%20View%20Vadoo%20Jetty%20Area.JPG?downsize=414:200" alt="Maldives">
+        <div class="body"><h3 class="title3">Maldives · 4D/3N</h3><p class="muted">Water villa • Speedboat transfers</p>
+        <div class="cta"><span class="price">From ₹49,999</span><a class="enq" href="{% url 'enquiry' %}?package=Maldives%20%C2%B7%204D%2F3N">Enquire</a></div></div>
+      </article>
+
+ 
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/8017/Morioka%20-%20Hachimangu%20Shrine.jpg?downsize=414:200" alt="Japan">
+        <div class="body"><h3 class="title3">Japan · 6D/5N</h3><p class="muted">Tokyo • Kyoto • Mt. Fuji</p>
+        <div class="cta"><span class="price">From ₹74,999</span><a class="enq" href="{% url 'enquiry' %}?package=Japan%20%C2%B7%206D%2F5N">Enquire</a></div></div>
+      </article>
+
+
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/6518/145.jpg?downsize=414:200" alt="Bali">
+        <div class="body"><h3 class="title3">Bali · 5D/4N</h3><p class="muted">Private villa • Dinner cruise</p>
+        <div class="cta"><span class="price">From ₹27,999</span><a class="enq" href="{% url 'enquiry' %}?package=Bali%20%C2%B7%205D%2F4N">Enquire</a></div></div>
+      </article>
+
+  
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/3147/Perfect%20Dubai.png?downsize=414:200" alt="Dubai">
+        <div class="body"><h3 class="title3">Dubai · 4D/3N</h3><p class="muted">Burj Khalifa • Desert Safari</p>
+        <div class="cta"><span class="price">From ₹35,999</span><a class="enq" href="{% url 'enquiry' %}?package=Dubai%20%C2%B7%204D%2F3N">Enquire</a></div></div>
+      </article>
+
+   
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/3736/Hoa%20lu%20ancient%20citadel%20-%20Ninh%20binh.PNG?downsize=414:200" alt="Vietnam">
+        <div class="body"><h3 class="title3">Vietnam · 6D/5N</h3><p class="muted">Hanoi • Ha Long Bay</p>
+        <div class="cta"><span class="price">From ₹39,999</span><a class="enq" href="{% url 'enquiry' %}?package=Vietnam%20%C2%B7%206D%2F5N">Enquire</a></div></div>
+      </article>
+
+      
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/4056/Glacier%20Express.jpg?downsize=414:200" alt="Europe">
+        <div class="body"><h3 class="title3">Europe · 7D/6N</h3><p class="muted">Switzerland • France • Italy</p>
+        <div class="cta"><span class="price">From ₹89,999</span><a class="enq" href="{% url 'enquiry' %}?package=Europe%20%C2%B7%207D%2F6N">Enquire</a></div></div>
+      </article>
+
+      
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/2514/Singapore2.jpg?downsize=414:200" alt="Singapore">
+        <div class="body"><h3 class="title3">Singapore · 5D/4N</h3><p class="muted">Sentosa • Marina Bay</p>
+        <div class="cta"><span class="price">From ₹44,999</span><a class="enq" href="{% url 'enquiry' %}?package=Singapore%20%C2%B7%205D%2F4N">Enquire</a></div></div>
+      </article>
+
+     
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/1971/Kaula%20Lumpur%20at%20Night.jpg?downsize=414:200" alt="Malaysia">
+        <div class="body"><h3 class="title3">Malaysia · 5D/4N</h3><p class="muted">Kuala Lumpur • Genting</p>
+        <div class="cta"><span class="price">From ₹31,999</span><a class="enq" href="{% url 'enquiry' %}?package=Malaysia%20%C2%B7%205D%2F4N">Enquire</a></div></div>
+      </article>
+
+      
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/2883/Enchanting%20%20Gregory%20Lake.jpg?downsize=414:200" alt="Sri Lanka">
+        <div class="body"><h3 class="title3">Sri Lanka · 5D/4N</h3><p class="muted">Kandy • Bentota • Colombo</p>
+        <div class="cta"><span class="price">From ₹21,999</span><a class="enq" href="{% url 'enquiry' %}?package=Sri%20Lanka%20%C2%B7%205D%2F4N">Enquire</a></div></div>
+      </article>
+
+  
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/2004/Screenshot%202025-06-16%20114509.png?downsize=414:200" alt="Mauritius">
+        <div class="body"><h3 class="title3">Mauritius · 6D/5N</h3><p class="muted">North & South tour</p>
+        <div class="cta"><span class="price">From ₹62,999</span><a class="enq" href="{% url 'enquiry' %}?package=Mauritius%20%C2%B7%206D%2F5N">Enquire</a></div></div>
+      </article>
+
+  
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/phonixImages/Australia_cruise_final.jpg" alt="Australia">
+        <div class="body"><h3 class="title3">Australia · 7D/6N</h3><p class="muted">Sydney • Melbourne</p>
+        <div class="cta"><span class="price">From ₹95,999</span><a class="enq" href="{% url 'enquiry' %}?package=Australia%20%C2%B7%207D%2F6N">Enquire</a></div></div>
+      </article>
+
+
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/phonixImages/Kochi_cruise_final.jpg" alt="Kochi">
+        <div class="body"><h3 class="title3">Kochi · 4D/3N</h3><p class="muted">Backwaters • Fort Kochi</p>
+        <div class="cta"><span class="price">From ₹18,999</span><a class="enq" href="{% url 'enquiry' %}?package=Kochi%20%C2%B7%204D%2F3N">Enquire</a></div></div>
+      </article>
+
+    
+      <article class="card">
+        <img class="thumb" src="https://promos.makemytrip.com/images/intl-uk-120825.webp" alt="United Kingdom">
+        <div class="body"><h3 class="title3">United Kingdom · 7D/6N</h3><p class="muted">London • Edinburgh</p>
+        <div class="cta"><span class="price">From ₹84,999</span><a class="enq" href="{% url 'enquiry' %}?package=United%20Kingdom%20%C2%B7%207D%2F6N">Enquire</a></div></div>
+      </article>
+
+      
+      <article class="card">
+        <img class="thumb" src="https://promos.makemytrip.com/images/intl-france-120825.webp" alt="France">
+        <div class="body"><h3 class="title3">France · 6D/5N</h3><p class="muted">Paris • Nice • Louvre</p>
+        <div class="cta"><span class="price">From ₹79,999</span><a class="enq" href="{% url 'enquiry' %}?package=France%20%C2%B7%206D%2F5N">Enquire</a></div></div>
+      </article>
+
+      
+      <article class="card">
+        <img class="thumb" src="https://promos.makemytrip.com/images/intl-indonesia-120825.webp" alt="Indonesia">
+        <div class="body"><h3 class="title3">Indonesia · 5D/4N</h3><p class="muted">Jakarta • Bali • Lombok</p>
+        <div class="cta"><span class="price">From ₹33,999</span><a class="enq" href="{% url 'enquiry' %}?package=Indonesia%20%C2%B7%205D%2F4N">Enquire</a></div></div>
+      </article>
+
+     
+      <article class="card">
+        <img class="thumb" src="https://promos.makemytrip.com/images/intl-unitedstates-120825.webp" alt="United States">
+        <div class="body"><h3 class="title3">United States · 8D/7N</h3><p class="muted">New York • LA • San Francisco</p>
+        <div class="cta"><span class="price">From ₹1,19,999</span><a class="enq" href="{% url 'enquiry' %}?package=United%20States%20%C2%B7%208D%2F7N">Enquire</a></div></div>
+      </article>
+
+    
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/3852/Aerial-View-Of-Coastline.jpg?downsize=414:200" alt="Seychelles">
+        <div class="body">
+          <h3 class="title3">Seychelles · 5D/4N</h3>
+          <p class="muted">Praslin • La Digue • Mahe</p>
+          <div class="cta"><span class="price">From ₹69,999</span><a class="enq" href="{% url 'enquiry' %}?package=Seychelles%20%C2%B7%205D%2F4N">Enquire</a></div>
+        </div>
+      </article>
+
+  
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/6923/A%20signpost%20in%20Shymbulak.jpg?downsize=414:200" alt="Almaty">
+        <div class="body">
+          <h3 class="title3">Almaty · 6D/5N</h3>
+          <p class="muted">Shymbulak • Kok Tobe • Big Almaty Lake</p>
+          <div class="cta"><span class="price">From ₹44,999</span><a class="enq" href="{% url 'enquiry' %}?package=Almaty%20%C2%B7%206D%2F5N">Enquire</a></div>
+        </div>
+      </article>
+
+
+      <article class="card">
+        <img class="thumb" src="https://hldak.mmtcdn.com/prod-s3-hld-hpcmsadmin/holidays/images/cities/4053/hkg.jpg?downsize=414:200" alt="Hong Kong">
+        <div class="body">
+          <h3 class="title3">Hong Kong · 5D/4N</h3>
+          <p class="muted">Disneyland • Victoria Peak • City tour</p>
+          <div class="cta"><span class="price">From ₹52,999</span><a class="enq" href="{% url 'enquiry' %}?package=Hong%20Kong%20%C2%B7%205D%2F4N">Enquire</a></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+  {% include "hello/partials/footer.html" %}
+
+<script>
+(function(){
+  const mm=document.getElementById('mobileMenu'); let hb=document.querySelector('.hamburger');
+
+  if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+
+  if(!hb){ const bar=document.querySelector('.topbar .nav'); if(bar){ hb=document.createElement('button'); hb.className='hamburger'; hb.setAttribute('aria-label','Menu'); hb.textContent='☰'; bar.appendChild(hb); } }
+  function openMenu(){ mm.classList.add('open'); document.body.classList.add('menu-open'); }
+  function closeMenu(){ mm.classList.remove('open'); document.body.classList.remove('menu-open'); }
+  if(hb) hb.addEventListener('click', openMenu);
+  const closeBtn=document.getElementById('closeMenu'); if(closeBtn) closeBtn.addEventListener('click', e=>{e.preventDefault(); closeMenu();});
+  if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+})();
+</script>
+{% endblock %}

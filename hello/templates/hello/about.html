@@ -1,0 +1,135 @@
+{% extends "hello/base.html" %}
+{% load static %}
+
+{% block title %}About • Book My Trip{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'hello/about.css' %}">
+{% endblock %}
+
+{% block content %}
+  {% include "hello/partials/header.html" %}
+
+
+<main>
+  <section class="container section">
+   
+    <h1 class="about-heading">About Us</h1>
+
+    <h2 class="section-title">Our Story</h2>
+    <p class="text-block">
+      Book My Trip was born from a passion for travel and a vision to make global adventures
+      more accessible. Starting in 2020 with a small team of enthusiastic travellers, we quickly
+      became one of the fastest-growing online travel agencies serving thousands of happy customers
+      worldwide. From humble beginnings, our focus has always been on <b>honesty, affordability,
+      and unforgettable experiences</b>.
+    </p>
+
+    <h2 class="section-title">Our Mission</h2>
+    <p class="text-block">
+      Our mission is simple: to empower people to explore the world without stress.
+      We believe travel should be about experiences, not hidden fees or confusing processes.
+      That’s why we focus on <b>transparent pricing</b>, <b>visa support</b>, and
+      <b>24×7 WhatsApp assistance</b>. We aim to be the most trusted companion for every
+      traveller’s journey.
+    </p>
+
+    <h2 class="section-title">Our Vision</h2>
+    <p class="text-block">
+      We envision a world where travelling is effortless and enjoyable. Whether it’s
+      a family vacation to Singapore, a honeymoon in Bali, or a solo trip across Europe,
+      we want to make it possible for everyone to travel confidently with our guidance.
+    </p>
+
+    <h2 class="section-title">What We Offer</h2>
+    <p class="text-block">Our services include:</p>
+    <ul class="text-block" style="list-style:disc; margin-left:20px;">
+      <li>Customized holiday packages with hotels, transfers, and activities.</li>
+      <li>Visa assistance for Dubai, Singapore, Schengen, and more.</li>
+      <li>Flight and hotel bookings with guaranteed best prices.</li>
+      <li>Instant WhatsApp and phone support from real humans, not bots.</li>
+      <li>Curated itineraries balancing sightseeing, relaxation, and culture.</li>
+    </ul>
+
+    <h2 class="section-title">Why Choose Us</h2>
+    <p class="text-block">
+      With countless travel websites online, why pick Book My Trip? The answer lies in our
+      <b>customer-first approach</b>. We provide handpicked hotels, trusted local guides,
+      flexible bookings, and most importantly—no hidden costs. Our reviews speak for themselves:
+      thousands of travellers rate us highly for transparency and support.
+    </p>
+
+    <h2 class="section-title">What Our Travellers Say</h2>
+    <p class="text-block">Here are a few words from our community:</p>
+    <blockquote class="text-block">
+      “The Bali package was amazing—smooth airport transfers, beautiful villa, and friendly support.
+      I’ll definitely book again!” — Aisha Khan
+    </blockquote>
+    <blockquote class="text-block">
+      “Dubai trip was perfect. The pricing was clear, and support was always available on WhatsApp.”
+      — Rohit Sharma
+    </blockquote>
+
+    <h2 class="section-title">Our Future Goals</h2>
+    <p class="text-block">
+      We’re constantly working to expand our offerings. In the coming years, we plan to add
+      more destinations, introduce mobile app booking, and offer AI-powered personalized trip planning.
+      Our dream is to become a global travel brand recognized for innovation and customer happiness.
+    </p>
+
+    <p class="text-block">
+      Whether you’re planning a weekend getaway or a once-in-a-lifetime adventure,
+      <strong>Book My Trip</strong> is here to make it happen. Let’s explore the world together!
+    </p>
+  </section>
+</main>
+
+  {% include "hello/partials/footer.html" %}
+
+
+<script>
+(function(){
+  const mm=document.getElementById('mobileMenu');
+  let hb=document.querySelector('.hamburger');
+
+  if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+
+  if(!hb){
+    const bar=document.querySelector('.topbar .nav')||document.querySelector('header');
+    if(bar){
+      hb=document.createElement('button');
+      hb.className='hamburger';
+      hb.setAttribute('aria-label','Menu');
+      hb.setAttribute('aria-expanded','false');
+      hb.textContent='☰';
+      hb.style.background='transparent';
+      hb.style.border='0';
+      hb.style.fontSize='24px';
+      hb.style.marginLeft='8px';
+      const actions=bar.querySelector('.actions');
+      if(actions){ actions.after(hb); } else { bar.appendChild(hb); }
+    }
+  }
+
+  function openMenu(){
+    if(!mm||!hb) return;
+    mm.classList.add('open');
+    document.body.classList.add('menu-open');
+    hb.setAttribute('aria-expanded','true');
+    mm.setAttribute('aria-hidden','false');
+  }
+  function closeMenu(){
+    if(!mm||!hb) return;
+    mm.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    hb.setAttribute('aria-expanded','false');
+    mm.setAttribute('aria-hidden','true');
+  }
+
+  if(hb) hb.addEventListener('click', openMenu);
+  const closeBtn=document.getElementById('closeMenu');
+  if(closeBtn) closeBtn.addEventListener('click', e=>{e.preventDefault(); closeMenu();});
+  if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+})();
+</script>
+{% endblock %}

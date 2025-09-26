@@ -1,0 +1,226 @@
+{% extends "hello/base.html" %}
+{% load static %}
+
+{% block title %}Book My Trip • Best Holiday Packages & Deals{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'hello/index.css' %}" />
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop" />
+{% endblock %}
+
+{% block content %}
+   {% include "hello/partials/header.html" %}
+
+
+  <main>
+
+    <section class="hero-slider">
+      <div class="hero-viewport">
+        <div class="slides" id="slides">
+          <article class="slide active">
+            <img loading="eager" decoding="async"
+              src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop"
+              alt="Dubai skyline at sunset"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.style.background='linear-gradient(90deg,var(--brand-d),var(--brand))';">
+            <div class="veil"></div>
+            <div class="caption">
+              <span class="tag">Dubai Top Experiences</span>
+              <h1 class="headline">Burj Al Arab Tour + Desert Safari</h1>
+              <p class="subhead">Free Gold Cappuccino • Theme Park Access • Limited Seats</p>
+             <a class="cta-pill" href="{% url 'packages' %}#dubai">Explore Dubai Packages →</a>
+            </div>
+          </article>
+
+          <article class="slide">
+            <img loading="lazy" decoding="async"
+              src="https://images.unsplash.com/photo-1503197979108-c824168d51a8?q=80&w=1600&auto=format&fit=crop"
+              alt="Bali beach cliffs"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.style.background='linear-gradient(90deg,var(--brand-d),var(--brand))';">
+            <div class="veil"></div>
+            <div class="caption">
+              <span class="tag" style="background:#16a34a">Bali Festive Offers</span>
+              <h2 class="headline">Private Villa Escape 5D/4N</h2>
+              <p class="subhead">Temple Tours • Sunset Dinner Cruise • Airport Transfers</p>
+              <a class="cta-pill" href="{% url 'packages' %}#bali">View Bali Deals →</a>
+
+            </div>
+          </article>
+
+          <article class="slide">
+            <img loading="lazy" decoding="async"
+              src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1600&auto=format&fit=crop"
+              alt="Paris Eiffel Tower evening"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.style.background='linear-gradient(90deg,var(--brand-d),var(--brand))';">
+            <div class="veil"></div>
+            <div class="caption">
+              <span class="tag" style="background:var(--brand)">Europe Specials</span>
+              <h2 class="headline">Paris Deluxe + Seine Cruise</h2>
+              <p class="subhead">Guided Louvre • Eiffel Summit Access • City Tour</p>
+<a class="cta-pill" href="{% url 'packages' %}#paris">See Europe Packages →</a>
+            </div>
+          </article>
+        </div>
+        <div class="dots" id="dots" aria-label="Carousel Dots"></div>
+      </div>
+    </section>
+
+    <section class="offer-strip">
+      <div class="container offer-row">
+        <div class="offer-pill">✨ <b>Monsoon Flash Sale</b> — up to 25% off</div>
+        <div class="offer-pill">🛂 <b>Visa Help</b> for Dubai, Singapore, Schengen</div>
+        <div class="offer-pill">💳 <b>No Hidden Fees</b> • Transparent pricing</div>
+        <div class="offer-pill">📞 <b>Instant Support</b> via WhatsApp</div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <div class="title-row">
+        <h2 class="section-title">Handpicked Holiday Packages</h2>
+        <a class="link-more" href="{% url 'packages' %}">See all</a>
+      </div>
+
+      <div class="pkg-grid">
+        <article class="pkg-card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1503197979108-c824168d51a8?q=80&w=1200&auto=format&fit=crop" alt="Bali">
+          <div class="pkg-body">
+            <h3>Bali Escape · 5D/4N</h3>
+            <div class="price-row">
+              <p class="sub">From ₹29,999</p>
+              <a class="btn primary" href="{% url 'enquiry' %}?package=Bali%20Escape%20%C2%B7%205D%2F4N">Enquire</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pkg-card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop" alt="Dubai">
+          <div class="pkg-body">
+            <h3>Dubai Starter · 4D/3N</h3>
+            <div class="price-row">
+              <p class="sub">From ₹24,999</p>
+              <a class="btn primary" href="{% url 'enquiry' %}?package=Dubai%20Starter%20%C2%B7%204D%2F3N">Enquire</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pkg-card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=1200&auto=format&fit=crop" alt="Goa">
+          <div class="pkg-body">
+            <h3>Goa Chill · 4D/3N</h3>
+            <div class="price-row">
+              <p class="sub">From ₹9,999</p>
+              <a class="btn primary" href="{% url 'enquiry' %}?package=Goa%20Chill%20%C2%B7%204D%2F3N">Enquire</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pkg-card">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=1200&auto=format&fit=crop" alt="Singapore">
+          <div class="pkg-body">
+            <h3>Singapore Fun · 5D/4N</h3>
+            <div class="price-row">
+              <p class="sub">From ₹36,999</p>
+              <a class="btn primary" href="{% url 'enquiry' %}?package=Singapore%20Fun%20%C2%B7%205D%2F4N">Enquire</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;">
+      <div class="container">
+        <h2 class="section-title" style="margin-bottom:12px">What Our Travellers Say</h2>
+        <div class="reviews-grid">
+          <article class="review-card">
+            <div class="review-head">
+              <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Aisha Khan">
+              <div><strong>Aisha Khan</strong><div class="stars" aria-label="5 stars">★★★★★</div></div>
+            </div>
+            <p class="review-text">Bali package was perfectly curated—private pool villa, smooth airport transfers, and quick WhatsApp support. Totally worth it!</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-head">
+              <img class="avatar" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Rohit Sharma">
+              <div><strong>Rohit Sharma</strong><div class="stars" aria-label="5 stars">★★★★★</div></div>
+            </div>
+            <p class="review-text">Booked Dubai—Burj Khalifa + Desert Safari included. Clear pricing, no surprises. Will book again.</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-head">
+              <img class="avatar" src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?q=80&w=200&auto=format&fit=crop" alt="Neha Patel">
+              <div><strong>Neha Patel</strong><div class="stars" aria-label="5 stars">★★★★★</div></div>
+            </div>
+            <p class="review-text">Got a great Europe deal. Visa guidance was super helpful and timely. Highly recommended.</p>
+          </article>
+
+          <article class="review-card">
+            <div class="review-head">
+              <img class="avatar" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop" alt="Arjun Mehta">
+              <div><strong>Arjun Mehta</strong><div class="stars" aria-label="5 stars">★★★★★</div></div>
+            </div>
+            <p class="review-text">Family trip to Singapore was easy—hotel location was perfect and itinerary had the right pace.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    {% include "hello/partials/footer.html" %}
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotsWrap = document.getElementById('dots');
+    let idx = 0, timer;
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('span');
+      d.className = 'dot' + (i===0 ? ' active' : '');
+      d.addEventListener('click', () => show(i, true));
+      dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function show(n, user=false){
+      slides[idx].classList.remove('active'); dots[idx].classList.remove('active');
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add('active'); dots[idx].classList.add('active');
+      if(user){ reset(); }
+    }
+    function next(){ show(idx+1); }
+    function reset(){ clearInterval(timer); timer = setInterval(next, 5000); }
+    reset();
+
+    const viewport = document.querySelector('.slides');
+    viewport.addEventListener('mouseenter', ()=>clearInterval(timer));
+    viewport.addEventListener('mouseleave', reset);
+  </script>
+
+  <script>
+  (function () {
+    const mm  = document.getElementById('mobileMenu');
+    const hb  = document.querySelector('.hamburger');
+    const cls = document.getElementById('closeMenu');
+    if (!mm || !hb || !cls) return;
+
+    if (mm.parentNode !== document.body) document.body.appendChild(mm);
+
+    function openMenu(){
+      mm.classList.add('open');
+      document.body.classList.add('menu-open');
+      hb.setAttribute('aria-expanded','true');
+      mm.setAttribute('aria-hidden','false');
+    }
+    function closeMenu(){
+      mm.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      hb.setAttribute('aria-expanded','false');
+      mm.setAttribute('aria-hidden','true');
+    }
+
+    hb.addEventListener('click', openMenu);
+    cls.addEventListener('click', (e)=>{ e.preventDefault(); closeMenu(); });
+    mm.addEventListener('click', (e)=>{ if (e.target === mm) closeMenu(); });
+    window.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeMenu(); });
+  })();
+  </script>
+{% endblock %}

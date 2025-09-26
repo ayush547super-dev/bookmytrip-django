@@ -1,0 +1,204 @@
+{% extends "hello/base.html" %}
+{% load static %}
+
+{% block title %}Book My Trip{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'hello/login.css' %}" />
+  <style>
+    @media (min-width: 981px){
+      .mobile-menu{ display:none !important; }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <header class="topbar">
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'packages' %}" class="{% if request.resolver_match.url_name == 'packages' %}active{% endif %}">Packages</a>
+      <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+      <a href="{% url 'help' %}" class="{% if request.resolver_match.url_name == 'help' %}active{% endif %}">Help</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
+        <a href="{% url 'signup' %}" class="{% if request.resolver_match.url_name == 'signup' %}active{% endif %}">Signup</a>
+      {% endif %}
+      <a href="#" id="closeMenu">Close ✕</a>
+    </nav>
+  </div>
+
+  <div class="container nav">
+    <a class="logo" href="{% url 'home' %}">Book <span>My</span> Trip</a>
+    <nav class="menu">
+      <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'packages' %}" class="{% if request.resolver_match.url_name == 'packages' %}active{% endif %}">Packages</a>
+      <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+      <a href="{% url 'help' %}" class="{% if request.resolver_match.url_name == 'help' %}active{% endif %}">Help</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
+        <a href="{% url 'signup' %}" class="{% if request.resolver_match.url_name == 'signup' %}active{% endif %}">Signup</a>
+      {% endif %}
+    </nav>
+    <div class="actions"><button class="btn ghost">EN</button></div>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+
+  <main>
+    <section class="container section">
+      <h1 class="title">Welcome back</h1>
+      <p class="sub">Sign in to manage your enquiries, save trip ideas, and get faster support.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-body">
+
+            <form method="post" class="row">
+              {% csrf_token %}
+              {% if messages %}
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+              <label>
+                <span class="small muted">Email or Username</span><br>
+                <input class="input" type="text" name="email" placeholder="you@example.com" required>
+              </label>
+              <label>
+                <span class="small muted">Password</span><br>
+                <input class="input" type="password" name="password" placeholder="••••••••" minlength="6" required>
+              </label>
+
+              <div class="between small">
+                <label style="display:flex;align-items:center;gap:8px">
+                  <input type="checkbox" name="remember"> Remember me
+                </label>
+                <a class="small" href="#">Forgot password?</a>
+              </div>
+
+              <button class="btn primary" type="submit">Sign in</button>
+
+              <p class="small muted" style="margin-top:10px">
+                By continuing, you agree to our <a href="{% url 'terms' %}">Terms</a> and <a href="{% url 'privacy' %}">Privacy Policy</a>.
+              </p>
+           
+              <p class="small">New here? <a href="{% url 'signup' %}">Create an account</a></p>
+            </form>
+          </div>
+        </div>
+
+        <aside class="card">
+          <div class="card-body">
+            <h3 style="margin-bottom:8px">Why create an account?</h3>
+            <ul class="small" style="margin-left:18px;list-style:disc">
+              <li>Save and compare multiple packages</li>
+              <li>Faster support with your details pre-filled</li>
+              <li>Get exclusive seasonal offers</li>
+              <li>Access upcoming trips and vouchers</li>
+            </ul>
+
+            <h3 style="margin:14px 0 8px">Need help?</h3>
+            <p class="small muted">Use our <a href="{% url 'help' %}">Help Center</a> or chat on WhatsApp for quick assistance.</p>
+            <a class="btn alt" href="{% url 'contact' %}" style="margin-top:6px">Contact Support</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="fgrid">
+        <div class="fbrand">
+          <h4>Book My Trip</h4>
+          <p>Where creativity meets wanderlust. Explore the world with transparent pricing and human support.</p>
+        </div>
+        <div class="fcol">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'packages' %}">Packages</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+         
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+          </ul>
+        </div>
+        <div class="fcol">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'terms' %}">Terms of Service</a></li>
+            <li><a href="{% url 'cookies' %}">Cookies</a></li>
+          </ul>
+        </div>
+        <div class="fcol">
+          <h4>Follow Us</h4>
+          <div class="social">
+  <a class="social-btn" aria-label="Facebook" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"
+         fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 9h3V5h-3c-1.7 0-3 1.3-3 3v2H8v4h3v7h4v-7h3l1-4h-4V8.5c0-.8.7-1.5 1.5-1.5H17"/>
+    </svg>
+  </a>
+
+  <a class="social-btn" aria-label="X (Twitter)" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"
+         fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4l16 16M20 4L4 20"/>
+    </svg>
+  </a>
+
+  <a class="social-btn" aria-label="Instagram" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"
+         fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4" ry="4"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.2" cy="6.8" r="1.1"/>
+    </svg>
+  </a>
+
+  <a class="social-btn" aria-label="YouTube" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"
+         fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="6.5" width="18" height="11" rx="3" ry="3"/>
+      <path d="M10 10l5 3-5 3z" fill="currentColor"/>
+    </svg>
+  </a>
+</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container foot-bottom">© 2025 Book My Trip. All rights reserved.</div>
+  </footer>
+
+  
+  <script>
+    (function(){
+      const mm  = document.getElementById('mobileMenu');
+      const hb  = document.querySelector('.hamburger');
+      const cls = document.getElementById('closeMenu');
+      if (!mm || !hb) return;
+
+      if (mm.parentNode !== document.body) document.body.appendChild(mm);
+      function openMenu(){ mm.classList.add('open'); document.body.classList.add('menu-open'); hb.setAttribute('aria-expanded','true'); mm.setAttribute('aria-hidden','false'); }
+      function closeMenu(){ mm.classList.remove('open'); document.body.classList.remove('menu-open'); hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); }
+
+      hb.addEventListener('click', openMenu);
+      if (cls) cls.addEventListener('click', e => { e.preventDefault(); closeMenu(); });
+      mm.addEventListener('click', e => { if (e.target === mm) closeMenu(); });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    })();
+  </script>
+{% endblock %}

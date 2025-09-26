@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service • Book My Trip</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f7f8; --ink:#0f172a; --muted:#64748b; --line:#e5e7eb;
+      --brand:#ffd200; --brand-d:#141414;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{margin:0;background:var(--bg);color:var(--ink);
+         font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.65}
+
+    /* Topbar */
+    .topbar{position:sticky;top:0;z-index:60;backdrop-filter:saturate(1.2) blur(10px);
+      background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.06)}
+    .container{width:min(1180px,92%);margin:auto}
+    .nav{display:flex;align-items:center;gap:14px;min-height:64px}
+    .logo{font-weight:800;font-size:22px;color:#0b1220;text-decoration:none;white-space:nowrap}
+    .logo span{background:var(--brand);color:var(--brand-d);padding:2px 8px;border-radius:8px;margin:0 6px}
+    .menu{display:flex;gap:18px;justify-content:center;flex:1}
+    .menu a{color:#0b1220;text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
+    .menu a.active{background:rgba(255,210,0,.18);color:var(--brand-d)}
+    .actions{margin-left:auto}
+    .btn.ghost{padding:8px 10px;border:1px solid var(--line);background:#fff;border-radius:10px}
+
+    .hamburger{display:none;background:transparent;border:0;font-size:24px;line-height:1;padding:6px 8px;margin-left:8px}
+    @media (max-width:880px){
+      .menu{display:none}
+      .hamburger{display:block}
+    }
+
+    .mobile-menu{display:none}
+    .mobile-menu.open{display:block}
+    .mobile-menu{
+      position:fixed; inset:0; background:rgba(0,0,0,.6);
+      z-index:2147483647; opacity:0; pointer-events:none; transition:opacity .24s ease;
+    }
+    .mobile-menu.open{opacity:1; pointer-events:auto}
+    .mobile-menu nav{
+      position:fixed; top:0; right:0; bottom:0; width:min(86vw,320px);
+      background:#fff; padding:20px; box-shadow:-6px 0 24px rgba(0,0,0,.25);
+      transform:translate3d(100%,0,0); transition:transform .28s ease;
+      overflow:auto; -webkit-overflow-scrolling:touch;
+    }
+    .mobile-menu.open nav{transform:translate3d(0,0,0)}
+    .mobile-menu nav a{display:block;margin:14px 0;font-weight:600;font-size:16px;color:#0b1220;text-decoration:none}
+    #closeMenu{margin-top:20px;font-weight:700;color:#ef4444 !important}
+    body.menu-open{overflow:hidden;position:relative;height:100%;touch-action:none}
+
+   
+    .section{padding:44px 0}
+    .page-heading{ text-align:center; font-size:46px; font-weight:800; line-height:1.1; margin:0 0 12px }
+    .page-heading::after{ content:""; display:block; width:80px; height:4px; background:var(--brand); margin:8px auto 0; border-radius:2px }
+    .muted{color:var(--muted)}
+    .h2{font-size:22px;font-weight:800;margin:24px 0 8px}
+    .text-block{max-width:920px;margin-bottom:14px;font-size:16px}
+    .list{max-width:920px;margin:0 0 14px 20px}
+    .list li{margin:6px 0}
+
+
+    .site-footer{background:linear-gradient(180deg,#0b1430,#0b1120); color:#e5e7eb; margin-top:34px}
+    .footer-top{padding:28px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    .fgrid{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr;gap:20px}
+    .fbrand h4{margin:0 0 8px;color:#ffd166}
+    .fbrand p{margin:0;color:#cbd5e1}
+    .fcol h4{margin:0 0 10px;color:#ffd166}
+    .fcol ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .fcol a{color:#e5e7eb;text-decoration:none}
+    .fcol a:hover{color:#fff}
+    .social{display:flex;gap:10px;margin-top:8px}
+    .social a{display:inline-grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.2);border-radius:10px}
+    .foot-bottom{padding:14px 0;color:#94a3b8;font-size:14px}
+    @media (max-width:900px){ .fgrid{grid-template-columns:1fr 1fr} }
+    @media (max-width:600px){ .fgrid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+
+   {% include "hello/partials/header.html" %}
+
+  <main>
+    <section class="container section">
+      <h1 class="page-heading">Terms of Service</h1>
+      <p class="text-block muted">Last updated: 09 September 2025</p>
+
+      <p class="text-block">
+        These Terms of Service (“Terms”) govern your access to and use of the Book My Trip website and services (collectively, the “Services”). By accessing or using our Services, you agree to be bound by these Terms.
+        If you do not agree, please do not use the Services.
+      </p>
+
+      <h2 class="h2">1. Eligibility</h2>
+      <p class="text-block">You must be at least 18 years old or the age of majority in your jurisdiction to use the Services and to make bookings.</p>
+
+      <h2 class="h2">2. Definitions</h2>
+      <ul class="list">
+        <li><b>“We/Us/Our”</b> means Book My Trip.</li>
+        <li><b>“You/Customer/User”</b> means the person using the Services.</li>
+        <li><b>“Partner”</b> means airlines, hotels, ground operators, insurers, or other third parties engaged to fulfill your booking.</li>
+      </ul>
+
+      <h2 class="h2">3. Nature of Our Services</h2>
+      <p class="text-block">
+        Book My Trip is a travel facilitator. We curate packages and coordinate with Partners to arrange services on your behalf.
+        Your final contract for travel components (flights, hotels, tours, visas) may be with respective Partners, whose own terms and policies apply in addition to these Terms.
+      </p>
+
+      <h2 class="h2">4. Quotes, Pricing & Payments</h2>
+      <ul class="list">
+        <li>Prices are typically quoted in INR unless stated otherwise and are subject to availability and change until paid.</li>
+        <li>Quotes include only the items expressly listed. Optional add-ons, surcharges, resort fees, and government taxes (if any) may be extra.</li>
+        <li>Payments must be made by the due dates shared in your invoice/communication. Failure to pay on time may lead to cancellation.</li>
+        <li>International exchange rate fluctuations may impact final pricing for some services until the time of payment/issuance.</li>
+      </ul>
+
+      <h2 class="h2">5. Bookings & Confirmations</h2>
+      <ul class="list">
+        <li>Booking is confirmed only after receipt of payment and issuance of a confirmation voucher/ticket from us or the Partner.</li>
+        <li>Names on tickets, passports, and documents must exactly match. You are responsible for providing accurate information.</li>
+        <li>Special requests (beds, meals, early check-in, late check-out, adjoining rooms, etc.) are subject to availability by Partners.</li>
+      </ul>
+
+      <h2 class="h2">6. Changes, Cancellations & Refunds</h2>
+      <ul class="list">
+        <li>Change and cancellation policies vary by Partner and fare/class. We will inform you of applicable rules before payment.</li>
+        <li>If you request a change or cancellation, additional charges and fare differences (if any) may apply.</li>
+        <li>Refund timelines are typically 5–10 working days after approval; international transactions may take longer due to banking processes.</li>
+        <li>For no-show or late arrival, refunds are subject to Partner rules and may be forfeited.</li>
+      </ul>
+
+      <h2 class="h2">7. Passports, Visas & Compliance</h2>
+      <ul class="list">
+        <li>You are responsible for ensuring passport validity (usually 6+ months beyond travel dates) and obtaining necessary visas and permits.</li>
+        <li>We can provide visa guidance; however, approvals are at the sole discretion of the issuing authorities.</li>
+        <li>You must comply with airline, immigration, customs, health, and local laws of all transit/destination countries.</li>
+      </ul>
+
+      <h2 class="h2">8. Travel Insurance</h2>
+      <p class="text-block">
+        We strongly recommend purchasing comprehensive travel insurance (medical, trip cancellation/interruption, baggage, and COVID-19 coverage as applicable).
+        Insurance is provided by third-party insurers under their own terms.
+      </p>
+
+      <h2 class="h2">9. User Responsibilities</h2>
+      <ul class="list">
+        <li>Provide accurate information and promptly review all documents for errors.</li>
+        <li>Arrive on time for flights, transfers, and tours; comply with baggage and check-in rules.</li>
+        <li>Behave respectfully and lawfully; you are responsible for damages caused by you to property or third parties.</li>
+      </ul>
+
+      <h2 class="h2">10. Content & Intellectual Property</h2>
+      <ul class="list">
+        <li>All site content (text, graphics, logos, images) is owned by or licensed to Book My Trip.</li>
+        <li>You may not copy, distribute, or modify content without our prior written consent.</li>
+      </ul>
+
+      <h2 class="h2">11. Prohibited Uses</h2>
+      <ul class="list">
+        <li>Using the Services for unlawful, misleading, or fraudulent purposes.</li>
+        <li>Attempting to interfere with site security, integrity, or availability.</li>
+        <li>Automated scraping or harvesting of content/data without permission.</li>
+      </ul>
+
+      <h2 class="h2">12. Third-Party Sites & Services</h2>
+      <p class="text-block">
+        Our site may link to third-party websites and services. We are not responsible for their content, policies, or practices.
+        Your use of third-party services is governed by their terms.
+      </p>
+
+      <h2 class="h2">13. Disclaimers</h2>
+      <ul class="list">
+        <li>Services are provided “as is” and “as available.” We disclaim warranties of merchantability, fitness for a particular purpose, and non-infringement to the extent permitted by law.</li>
+        <li>We are not liable for delays, cancellations, overbookings, schedule changes, or acts/omissions of Partners or authorities.</li>
+      </ul>
+
+      <h2 class="h2">14. Limitation of Liability</h2>
+      <p class="text-block">
+        To the maximum extent permitted by law, our total liability arising out of or relating to the Services shall not exceed the amount you paid to us for the specific booking giving rise to the claim.
+        We will not be liable for any indirect, incidental, special, consequential, or punitive damages.
+      </p>
+
+      <h2 class="h2">15. Indemnity</h2>
+      <p class="text-block">
+        You agree to indemnify and hold harmless Book My Trip and its officers, employees, and agents from any claims, damages, liabilities, costs, and expenses arising out of your breach of these Terms or violation of any law or third-party rights.
+      </p>
+
+      <h2 class="h2">16. Force Majeure</h2>
+      <p class="text-block">
+        We are not responsible for failure or delay caused by events beyond our reasonable control, including but not limited to natural disasters, pandemics, strikes, war, civil disturbances, government actions, or failures of utilities or communications.
+      </p>
+
+      <h2 class="h2">17. Governing Law & Dispute Resolution</h2>
+      <p class="text-block">
+        These Terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts located in Bengaluru, Karnataka, India. You agree to first attempt to resolve disputes informally by contacting us.
+      </p>
+
+      <h2 class="h2">18. Changes to These Terms</h2>
+      <p class="text-block">
+        We may update these Terms from time to time. Changes will be posted on this page with an updated date. Continued use of the Services after changes constitutes acceptance.
+      </p>
+
+      <h2 class="h2">19. Contact Us</h2>
+      <p class="text-block">
+        For questions about these Terms, contact us at:<br>
+        <b>WhatsApp / Phone:</b> +44 7413 034998<br>
+        <b>Email:</b> <a href="mailto:support@bookmytrip.vip">support@bookmytrip.vip</a>
+      </p>
+
+      <p class="text-block muted">
+        Tip: Also review our <a href="privacy.html">Privacy Policy</a> and <a href="cookies.html">Cookies Policy</a> for how we handle your data.
+      </p>
+    </section>
+  </main>
+    {% include "hello/partials/footer.html" %}
+
+  <script>
+    (function(){
+      const mm=document.getElementById('mobileMenu');
+      const hb=document.querySelector('.hamburger');
+      const closeBtn=document.getElementById('closeMenu');
+
+      if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+
+      function openMenu(){ mm.classList.add('open'); document.body.classList.add('menu-open'); }
+      function closeMenu(){ mm.classList.remove('open'); document.body.classList.remove('menu-open'); }
+
+      if(hb) hb.addEventListener('click', openMenu);
+      if(closeBtn) closeBtn.addEventListener('click', e=>{ e.preventDefault(); closeMenu(); });
+      if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+      window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+    })();
+  </script>
+</body>
+</html>

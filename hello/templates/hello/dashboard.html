@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard • Book My Trip</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f7f8; --ink:#0f172a; --muted:#64748b; --line:#e5e7eb;
+      --brand:#ffd200; --brand-d:#141414;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{margin:0;background:var(--bg);color:var(--ink);
+         font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.65}
+
+    .topbar{position:sticky;top:0;z-index:60;backdrop-filter:saturate(1.2) blur(10px);
+      background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.06)}
+    .container{width:min(1180px,92%);margin:auto}
+    .nav{display:flex;align-items:center;gap:14px;min-height:64px}
+    .logo{font-weight:800;font-size:22px;color:#0b1220;text-decoration:none;white-space:nowrap}
+    .logo span{background:var(--brand);color:var(--brand-d);padding:2px 8px;border-radius:8px;margin:0 6px}
+    .menu{display:flex;gap:18px;justify-content:center;flex:1}
+    .menu a{color:#0b1220;text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
+    .menu a.active{background:rgba(255,210,0,.18);color:var(--brand-d)}
+    .actions{margin-left:auto}
+    .btn.ghost{padding:8px 10px;border:1px solid var(--line);background:#fff;border-radius:10px}
+    .hamburger{display:none;background:transparent;border:0;font-size:24px;line-height:1;padding:6px 8px;margin-left:8px}
+    @media (max-width:880px){.menu{display:none}.hamburger{display:block}}
+
+    .mobile-menu{display:none}
+    .mobile-menu.open{display:block}
+    .mobile-menu{position:fixed;inset:0;background:rgba(0,0,0,.6);
+      z-index:2147483647;opacity:0;pointer-events:none;transition:opacity .24s ease}
+    .mobile-menu.open{opacity:1;pointer-events:auto}
+    .mobile-menu nav{position:fixed;top:0;right:0;bottom:0;width:min(86vw,320px);
+      background:#fff;padding:20px;box-shadow:-6px 0 24px rgba(0,0,0,.25);
+      transform:translate3d(100%,0,0);transition:transform .28s ease;
+      overflow:auto;-webkit-overflow-scrolling:touch}
+    .mobile-menu.open nav{transform:translate3d(0,0,0)}
+    .mobile-menu nav a{display:block;margin:14px 0;font-weight:600;font-size:16px;color:#0b1220;text-decoration:none}
+    #closeMenu{margin-top:20px;font-weight:700;color:#ef4444 !important}
+    body.menu-open{overflow:hidden;position:relative;height:100%;touch-action:none}
+
+    .section{padding:44px 0}
+    .hero{background:linear-gradient(135deg,#fff,#fff4c3);border:1px solid var(--line);
+      border-radius:16px;padding:20px;display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .hero p{color:var(--muted)}
+    .btn{appearance:none;border:0;border-radius:10px;background:var(--brand);color:#111;
+      padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .btn.ghost{background:#111;color:#fff}
+    .grid{display:grid;gap:16px}
+    .cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.cards{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+    .kpi .label{color:var(--muted);font-size:13px}
+    .kpi .value{font-size:28px;font-weight:800}
+    .section-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:20px}
+    @media(max-width:980px){.section-grid{grid-template-columns:1fr}}
+    .table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);
+      border-radius:12px;overflow:hidden;background:#fff}
+    .table th,.table td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+    .table tr:last-child td{border-bottom:0}
+    .empty{text-align:center;border:1px dashed var(--line);padding:24px;border-radius:12px;background:#fff}
+    .badge{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);display:inline-block}
+    .badge.ok{background:#eaffea;border-color:#b8e3b8}
+    .badge.warn{background:#fff6e5;border-color:#ffd99f}
+    .badge.err{background:#ffeaea;border-color:#ffc1c1}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .reco a{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;text-decoration:none;color:var(--ink)}
+    .reco a + a{margin-top:10px}
+    .reco p{margin-top:4px;color:var(--muted);font-size:13px}
+
+    .site-footer{background:linear-gradient(180deg,#0b1430,#0b1120);color:#e5e7eb;margin-top:34px}
+    .footer-top{padding:28px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    .fgrid{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr;gap:20px}
+    .fbrand h4{margin:0 0 8px;color:#ffd166}
+    .fbrand p{margin:0;color:#cbd5e1}
+    .fcol h4{margin:0 0 10px;color:#ffd166}
+    .fcol ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .fcol a{color:#e5e7eb;text-decoration:none}
+    .fcol a:hover{color:#fff}
+    
+    .foot-bottom{padding:14px 0;color:#94a3b8;font-size:14px}
+    @media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.fgrid{grid-template-columns:1fr}}
+    .social{display:flex;gap:12px;margin-top:8px}
+.social-btn{
+  display:inline-grid;place-items:center;
+  width:44px;height:44px;border:1px solid rgba(255,255,255,.25);
+  border-radius:12px;text-decoration:none;color:#e5e7eb;
+  background:transparent;transition:all .18s ease;
+}
+.social-btn:hover{border-color:#fff;box-shadow:inset 0 0 0 3px rgba(255,255,255,.08)}
+.social-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none}
+
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'packages' %}">Packages</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'contact' %}">Contact</a>
+      <a href="{% url 'help' %}">Help</a>
+      <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+      {% endif %}
+      <a href="#" id="closeMenu">Close ✕</a>
+    </nav>
+  </div>
+  <div class="container nav">
+    <a class="logo" href="{% url 'home' %}">Book <span>My</span> Trip</a>
+    <nav class="menu">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'packages' %}">Packages</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'contact' %}">Contact</a>
+      <a href="{% url 'help' %}">Help</a>
+      <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+      {% endif %}
+    </nav>
+    <div class="actions"><button class="btn ghost">EN</button></div>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="container section">
+    <div class="hero">
+      <div>
+        <h2>Welcome back, {{ user.first_name|default:user.username }} 👋</h2>
+        {% if upcoming_booking %}
+          <p>Your next trip: <strong>{{ upcoming_booking.package.title }}</strong> •
+          <strong>{{ upcoming_booking.travel_date|date:"M d, Y" }}</strong></p>
+        {% else %}
+          <p>No upcoming trips yet. Let’s find your next adventure!</p>
+        {% endif %}
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="{% url 'packages' %}">Browse Packages</a>
+        <a class="btn ghost" href="{% url 'contact' %}">Enquiry</a>
+      </div>
+    </div>
+
+    <div class="grid cards">
+      <div class="card kpi"><span class="label">Total Bookings</span><div class="value">{{ stats.total_bookings }}</div></div>
+      <div class="card kpi"><span class="label">Upcoming</span><div class="value">{{ stats.upcoming_count }}</div></div>
+      <div class="card kpi"><span class="label">My Reviews</span><div class="value">{{ reviews|length }}</div></div>
+      <div class="card kpi"><span class="label">Total Spent</span><div class="value">₹{{ stats.total_spent|floatformat:0 }}</div></div>
+    </div>
+
+    <div class="section-grid">
+      <div>
+        <h3>Recent Bookings</h3>
+        {% if recent_bookings %}
+          <table class="table">
+            <thead>
+              <tr><th>Package</th><th>Travel Date</th><th>Status</th><th>Total</th><th>Booked On</th></tr>
+            </thead>
+            <tbody>
+              {% for b in recent_bookings %}
+              <tr>
+                <td>{{ b.package.title }}</td>
+                <td>{{ b.travel_date|date:"M d, Y" }}</td>
+                <td>{{ b.status|title }}</td>
+                <td>₹{{ b.total_price|floatformat:0 }}</td>
+                <td>{{ b.booking_date|date:"M d, Y" }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="empty">
+            <p><strong>No bookings yet.</strong></p>
+            <p>Start exploring packages and plan your first trip!</p>
+            <a class="btn" href="{% url 'packages' %}">Find Packages</a>
+          </div>
+        {% endif %}
+      </div>
+
+      <aside>
+        <div class="card">
+          <h4>Quick Actions</h4>
+          <div class="list">
+            <a class="btn" href="{% url 'packages' %}">Book a Trip</a>
+            <a class="btn" href="{% url 'contact' %}">Make an Enquiry</a>
+            <a class="btn ghost" href="{% url 'help' %}">Help Center</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h4>Recommended for you</h4>
+          <div class="reco">
+            {% for r in recommendations %}
+              <a href="{% url 'packages' %}#{{ r.slug|default:r.id }}">
+                <strong>{{ r.name|default:r.title }}</strong>
+                <p>{% if r.price %}Starting at {{ r.price }}{% else %}New deals available{% endif %}</p>
+              </a>
+            {% empty %}
+              <p class="muted">No recommendations yet.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div class="fgrid">
+      <div class="fbrand">
+        <h4>Book My Trip</h4>
+        <p>Where creativity meets wanderlust. Explore the world with transparent pricing and human support.</p>
+      </div>
+      <div class="fcol">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'packages' %}">Packages</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'signup' %}">Signup</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+          <li><a href="{% url 'terms' %}">Terms of Service</a></li>
+          <li><a href="{% url 'cookies' %}">Cookies</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Follow Us</h4>
+        <div class="social">
+  <a class="social-btn" aria-label="Facebook" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M14 9h3V5h-3c-1.7 0-3 1.3-3 3v2H8v4h3v7h4v-7h3l1-4h-4V8.5c0-.8.7-1.5 1.5-1.5H17" />
+    </svg>
+  </a>
+  <a class="social-btn" aria-label="X (Twitter)" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 4l16 16M20 4L4 20" />
+    </svg>
+  </a>
+  <a class="social-btn" aria-label="Instagram" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4" ry="4" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1.1" />
+    </svg>
+  </a>
+  <a class="social-btn" aria-label="YouTube" href="#" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="6.5" width="18" height="11" rx="3" ry="3" />
+      <path d="M10 10l5 3-5 3z" fill="currentColor" />
+    </svg>
+  </a>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container foot-bottom">© 2025 Book My Trip. All rights reserved.</div>
+</footer>
+
+<script>
+(function(){
+  const mm=document.getElementById('mobileMenu');
+  const hb=document.querySelector('.hamburger');
+  const closeBtn=document.getElementById('closeMenu');
+  if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+  function openMenu(){ mm.classList.add('open'); document.body.classList.add('menu-open'); }
+  function closeMenu(){ mm.classList.remove('open'); document.body.classList.remove('menu-open'); }
+  if(hb) hb.addEventListener('click', openMenu);
+  if(closeBtn) closeBtn.addEventListener('click', e=>{ e.preventDefault(); closeMenu(); });
+  if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+})();
+</script>
+</body>
+</html>

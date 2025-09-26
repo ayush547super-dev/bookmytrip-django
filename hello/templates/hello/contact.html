@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact • Book My Trip</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f6f7f8; --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --brand:#ffd200; --brand-d:#141414; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.65}
+
+    .topbar{position:sticky;top:0;z-index:60;backdrop-filter:saturate(1.2) blur(10px);
+      background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.06)}
+    .container{width:min(1180px,92%);margin:auto}
+    .nav{display:flex;align-items:center;gap:14px;min-height:64px}
+    .logo{font-weight:800;font-size:22px;color:#0b1220;text-decoration:none}
+    .logo span{background:var(--brand);color:var(--brand-d);padding:2px 8px;border-radius:8px;margin:0 6px}
+    .menu{display:flex;gap:18px;justify-content:center;flex:1}
+    .menu a{color:#0b1220;text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
+    .menu a.active{background:rgba(255,210,0,.18);color:var(--brand-d)}
+    .actions{margin-left:auto}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border-radius:12px;cursor:pointer}
+    .btn.ghost{padding:8px 10px;border:1px solid var(--line);background:#fff}
+    .hamburger{display:none}
+    @media (max-width:980px){
+      .menu{display:none}
+      .hamburger{display:block;background:transparent;border:0;font-size:24px;line-height:1;padding:6px 8px;margin-left:8px}
+    }
+
+    .section{padding:44px 0}
+    .title{font-size:28px;font-weight:800;margin-bottom:10px}
+    .sub{color:var(--muted);margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:2fr 1.2fr;gap:22px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 22px rgba(15,23,42,.08)}
+    .card-body{padding:16px}
+    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .input, select, textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit}
+    textarea{resize:vertical}
+    .btn.primary{background:var(--brand-d);color:#fff;border:0;padding:12px 16px;border-radius:12px}
+    .btn.alt{background:var(--brand);color:var(--brand-d);border:0;padding:12px 16px;border-radius:999px;font-weight:800}
+    .note{font-size:14px;color:var(--muted);margin-top:8px}
+    .pill-row{display:flex;gap:10px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+
+    details.faq{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    details.faq+details.faq{margin-top:10px}
+    details.faq summary{padding:14px 16px;cursor:pointer;font-weight:700}
+    details.faq .a{padding:0 16px 16px;color:var(--muted)}
+
+  
+    .page-heading{
+      text-align:center;font-size:46px;font-weight:800;margin-bottom:15px;line-height:1.1;position:relative}
+    .page-heading::after{content:"";display:block;width:80px;height:4px;background:var(--brand);margin:2px auto 0;border-radius:2px}
+
+    .site-footer{background:linear-gradient(180deg,#0b1430,#0b1120); color:#e5e7eb; margin-top:34px}
+    .footer-top{padding:28px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    .fgrid{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr;gap:20px}
+    .fbrand h4{margin:0 0 8px;color:#ffd166}
+    .fbrand p{margin:0;color:#cbd5e1}
+    .fcol h4{margin:0 0 10px;color:#ffd166}
+    .fcol ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .fcol a{color:#e5e7eb;text-decoration:none}
+    .fcol a:hover{color:#fff}
+    .social{display:flex;gap:10px;margin-top:8px}
+    .foot-bottom{padding:14px 0;color:#94a3b8;font-size:14px}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} .fgrid{grid-template-columns:1fr 1fr} }
+    @media (max-width:600px){ .fgrid{grid-template-columns:1fr} }
+
+   
+    .mobile-menu{display:none !important;}
+    .mobile-menu.open{display:block !important;}
+    @media (max-width:980px){
+      .mobile-menu{
+        position:fixed; inset:0; background:rgba(0,0,0,.60);
+        z-index:2147483647; opacity:0; pointer-events:none; transition:opacity .24s ease;
+      }
+      .mobile-menu.open{opacity:1; pointer-events:auto;}
+      .mobile-menu nav{
+        position:fixed; top:0; right:0; bottom:0; width:min(86vw,320px);
+        background:#fff; transform:translate3d(100%,0,0);
+        transition:transform .28s ease; will-change:transform;
+        padding:max(20px, env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 18px 18px;
+        overflow:auto; -webkit-overflow-scrolling:touch;
+        box-shadow:-6px 0 24px rgba(0,0,0,.25);
+      }
+      .mobile-menu.open nav{transform:translate3d(0,0,0);}
+      .mobile-menu nav a{
+        display:block; margin:14px 0; font-weight:700; font-size:16px;
+        color:#0b1220 !important; text-decoration:none;
+      }
+      #closeMenu{color:#ef4444 !important; font-weight:800; margin-top:20px;}
+      body.menu-open{overflow:hidden; position:relative; height:100%; touch-action:none;}
+    }
+  .social{display:flex;gap:12px;margin-top:8px}
+.social-btn{
+  display:inline-grid;place-items:center;
+  width:44px;height:44px;border:1px solid rgba(255,255,255,.25);
+  border-radius:12px;text-decoration:none;color:#e5e7eb;
+  background:transparent;transition:all .18s ease;
+}
+.social-btn:hover{border-color:#fff;box-shadow:inset 0 0 0 3px rgba(255,255,255,.08)}
+.social-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none}
+
+  </style>
+</head>
+<body>
+
+ {% include "hello/partials/header.html" %}
+
+  <main>
+    <section class="container section">
+      <h1 class="page-heading">Contact Us</h1>
+      <p class="sub" style="text-align:center">We’re here to help with enquiries, bookings, and visa support. Choose WhatsApp for the fastest response.</p>
+
+      <div class="grid">
+        <!-- LEFT -->
+        <div class="card">
+          <div class="card-body">
+            <h2 style="margin-bottom:10px">Send a Message</h2>
+            <form id="contactForm" onsubmit="submitForm(event)">
+              <div class="row">
+                <input class="input" name="name" placeholder="Full name" required>
+                <input class="input" name="phone" placeholder="WhatsApp number" required>
+                <input class="input" type="email" name="email" placeholder="Email (optional)">
+                <select name="topic" class="input">
+                  <option value="General">General question</option>
+                  <option value="Package enquiry">Package enquiry</option>
+                  <option value="Visa help">Visa help</option>
+                  <option value="Support">Support</option>
+                </select>
+              </div>
+              <textarea class="input" name="message" rows="6" placeholder="How can we help?" required></textarea>
+
+              <div class="pill-row" style="margin:12px 0">
+                <span class="pill">⏱️ Typical reply: <b>5–30 min</b> (10:00–19:00 IST)</span>
+                <span class="pill">🛂 Visa guidance available</span>
+                <span class="pill">💳 Transparent pricing</span>
+              </div>
+
+              <div class="pill-row">
+                <button class="btn primary" type="submit">Send via Email</button>
+                <a id="waBtn" class="btn alt" target="_blank" rel="noopener">Chat on WhatsApp</a>
+              </div>
+              <div class="note">We’ll never share your details. By contacting us, you agree to our <a href="privacy.html">Privacy Policy</a>.</div>
+            </form>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <aside class="card">
+          <div class="card-body">
+            <h3 style="margin-bottom:8px">Support Hours</h3>
+            <p class="sub" style="margin:0 0 12px">Monday–Saturday, 10:00–19:00 IST • Closed on national holidays</p>
+
+            <h3 style="margin:6px 0 8px">Contact Details</h3>
+            <div class="row">
+              <div>
+                <p><b>WhatsApp:</b> +44 7413 034998</p>
+                <p><b>Phone:</b> +44 7413 034998</p>
+                <p><b>Email:</b> <a href="mailto:support@bookmytrip.vip" class="link">support@bookmytrip.vip</a></p>
+              </div>
+              <div>
+                <p><b>Head Office:</b><br> BMT House, MG Road,<br> Bengaluru 560001, India</p>
+                <p><b>Operations:</b><br> Andheri East,<br> Mumbai 400069, India</p>
+              </div>
+            </div>
+
+            <h3 style="margin:12px 0 8px">Find Us</h3>
+            <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden">
+              <iframe title="Map" width="100%" height="220" style="border:0"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=72.8,18.9,73.2,19.3&layer=mapnik">
+              </iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section" style="padding-top:0">
+      <h2 class="title" style="font-size:22px">Quick Help</h2>
+      <div>
+        <details class="faq" open>
+          <summary>How do I book a package?</summary>
+          <div class="a">Pick a package on the site, click <b>Enquire</b>, and we’ll finalize dates, inclusions, and payment on WhatsApp.</div>
+        </details>
+        <details class="faq">
+          <summary>Do you assist with visas?</summary>
+          <div class="a">Yes—Dubai, Singapore, and Schengen guidance available. We’ll share document checklists and timelines.</div>
+        </details>
+        <details class="faq">
+          <summary>How fast do you reply?</summary>
+          <div class="a">Usually within 5–30 minutes during support hours. After-hours messages are answered first thing next day.</div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+    {% include "hello/partials/footer.html" %}
+
+
+  <script>
+    /* ===== Contact form summary & actions ===== */
+    const YOUR_WA_NUMBER = '447413034998'; // no plus sign
+    const f = document.getElementById('contactForm');
+    const waBtn = document.getElementById('waBtn');
+
+    function buildSummary() {
+      const data = new FormData(f);
+      return [
+        'Contact Request — Book My Trip',
+        'Name: ' + (data.get('name')||''),
+        'WhatsApp: ' + (data.get('phone')||''),
+        'Email: ' + (data.get('email')||''),
+        'Topic: ' + (data.get('topic')||''),
+        'Message:',
+        (data.get('message')||'')
+      ].join('\\n');
+    }
+    function updateWA() {
+      const text = encodeURIComponent(buildSummary());
+      waBtn.href = 'https://wa.me/' + YOUR_WA_NUMBER + '?text=' + text;
+    }
+    function submitForm(e){
+      e.preventDefault();
+      const body = encodeURIComponent(buildSummary());
+      location.href = 'mailto:support@bookmytrip.vip?subject=' + encodeURIComponent('Website Contact') + '&body=' + body;
+    }
+    f.addEventListener('input', updateWA);
+    updateWA();
+  </script>
+
+  <script>
+  (function(){
+    const mm=document.getElementById('mobileMenu');
+    let hb=document.querySelector('.hamburger');
+
+    if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+
+    if(!hb){
+      const bar=document.querySelector('.topbar .nav')||document.querySelector('header');
+      if(bar){
+        hb=document.createElement('button');
+        hb.className='hamburger';
+        hb.setAttribute('aria-label','Menu');
+        hb.setAttribute('aria-expanded','false');
+        hb.textContent='☰';
+        hb.style.background='transparent';
+        hb.style.border='0';
+        hb.style.fontSize='24px';
+        hb.style.marginLeft='8px';
+        const actions=bar.querySelector('.actions');
+        if(actions){ actions.after(hb); } else { bar.appendChild(hb); }
+      }
+    }
+
+    function openMenu(){ if(!mm||!hb) return; mm.classList.add('open'); document.body.classList.add('menu-open');
+      hb.setAttribute('aria-expanded','true'); mm.setAttribute('aria-hidden','false'); }
+    function closeMenu(){ if(!mm||!hb) return; mm.classList.remove('open'); document.body.classList.remove('menu-open');
+      hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); }
+
+    if(hb) hb.addEventListener('click', openMenu);
+    const closeBtn=document.getElementById('closeMenu');
+    if(closeBtn) closeBtn.addEventListener('click', e=>{e.preventDefault(); closeMenu();});
+    if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+    window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enquiry • Book My Trip</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{ --bg:#f6f7f8; --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --brand:#ffd200; --brand-d:#141414; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+
+    .topbar{position:sticky; top:0; z-index:60; backdrop-filter:saturate(1.2) blur(10px);
+      background:rgba(255,255,255,.85); border-bottom:1px solid rgba(0,0,0,.06);}
+    .container{width:min(1180px,92%);margin:auto}
+    .nav{display:flex;align-items:center;gap:14px;min-height:64px}
+    .logo{font-weight:800;font-size:22px;color:#0b1220;text-decoration:none;white-space:nowrap}
+    .logo span{background:var(--brand);color:var(--brand-d);padding:2px 8px;border-radius:8px;margin:0 6px;display:inline-block;line-height:1.1}
+    .menu{display:flex;gap:18px;justify-content:center;flex:1}
+    .menu a{color:#0b1220;text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
+    .menu a.active{background:rgba(255,210,0,.18);color:var(--brand-d)}
+    .actions{display:flex;gap:8px;margin-left:auto}
+    .btn.ghost{padding:8px 10px;border:1px solid var(--line);background:#fff;border-radius:10px}
+    .hamburger{display:none}
+    @media (max-width:880px){
+      .menu{display:none}
+      .hamburger{display:block;background:transparent;border:0;font-size:24px;line-height:1;padding:6px 8px;margin-left:8px}
+    }
+
+    main{padding:34px 0}
+    .page-head{padding:14px 0 8px}
+    .h1{font-size:28px;font-weight:800;margin:0}
+    .lead{color:var(--muted);margin-top:6px}
+
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
+    .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px; box-shadow:0 10px 28px rgba(15,23,42,.08)}
+    .panel h2{margin:0 0 8px;font-size:18px}
+    .row{display:grid;gap:12px;margin-top:10px}
+    .row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media (max-width:700px){
+      .row-2,.row-3,.row-4{grid-template-columns:1fr}
+    }
+
+    .field label{display:block;margin:0 0 6px;font-weight:700}
+    .field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+    .field textarea{min-height:110px;resize:vertical}
+    .hint{font-size:12px;color:var(--muted);margin-top:4px}
+    .inline{display:flex;align-items:center;gap:10px}
+
+    .pill{display:inline-block;background:rgba(255,210,0,.18);color:var(--brand-d);padding:4px 10px;border-radius:999px;font-weight:800;font-size:12px}
+
+    .totals{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-weight:700}
+    .totals b{color:var(--brand-d)}
+
+    .btn.primary{background:var(--brand-d);color:#fff;border:0;padding:12px 16px;border-radius:12px;font-weight:800}
+    .btn.primary:hover{opacity:.9}
+
+    .aside{display:grid;gap:12px}
+    .note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--muted)}
+    .badge{display:inline-block;background:rgba(255,210,0,.18);color:var(--brand-d);padding:6px 10px;border-radius:999px;font-weight:800}
+
+    .site-footer{background:linear-gradient(180deg,#0b1430,#0b1120); color:#e5e7eb; margin-top:34px}
+    .footer-top{padding:28px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    .fgrid{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr;gap:20px}
+    .fbrand h4{margin:0 0 8px;color:#ffd166}
+    .fbrand p{margin:0;color:#cbd5e1}
+    .fcol h4{margin:0 0 10px;color:#ffd166}
+    .fcol ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .fcol a{color:#e5e7eb;text-decoration:none}
+    .fcol a:hover{color:#fff}
+    .social{display:flex;gap:10px;margin-top:8px}
+    .social a{display:inline-grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.2);border-radius:10px}
+    .foot-bottom{padding:14px 0;color:#94a3b8;font-size:14px}
+    @media (max-width:900px){ .fgrid{grid-template-columns:1fr 1fr} }
+    @media (max-width:600px){ .fgrid{grid-template-columns:1fr} }
+
+    .mobile-menu{display:block !important;}
+    @media (max-width:880px){
+      .mobile-menu{
+        position:fixed; inset:0; background:rgba(0,0,0,.60);
+        z-index:2147483647; opacity:0; pointer-events:none; transition:opacity .24s ease;
+      }
+      .mobile-menu.open{opacity:1; pointer-events:auto;}
+      .mobile-menu nav{
+        position:fixed; top:0; right:0; bottom:0; width:min(86vw,320px);
+        background:#fff; transform:translate3d(100%,0,0);
+        transition:transform .28s ease; will-change:transform;
+        padding:max(20px, env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 18px 18px;
+        overflow:auto; -webkit-overflow-scrolling:touch;
+        box-shadow:-6px 0 24px rgba(0,0,0,.25);
+      }
+      .mobile-menu.open nav{transform:translate3d(0,0,0);}
+      .mobile-menu nav a{display:block;margin:14px 0;font-weight:700;font-size:16px;color:#0b1220 !important;text-decoration:none}
+      #closeMenu{color:#ef4444 !important;font-weight:800;margin-top:20px}
+      body.menu-open{overflow:hidden; position:relative; height:100%; touch-action:none;}
+    }
+    .mobile-menu {
+  display: none; 
+}
+
+.mobile-menu nav {
+  display: none;
+}
+
+.mobile-menu.open nav {
+  display: block; 
+}
+
+  </style>
+</head>
+<body>
+
+   {% include "hello/partials/header.html" %}
+
+
+  <main class="container">
+    <div class="page-head">
+      <h1 class="h1" id="pageTitle">Enquiry</h1>
+      <p class="lead" id="pageLead">Please fill out the form below and we’ll get back to you shortly.</p>
+    </div>
+
+    <div class="grid">
+ 
+      <section class="panel" aria-labelledby="formTitle">
+        <h2 id="formTitle">Your Details</h2>
+
+        <form id="enquiryForm" class="row">
+      
+          <div class="row-3">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input id="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone (with country code)</label>
+              <input id="phone" type="tel" required placeholder="+91 98xxxxxxx" />
+            </div>
+          </div>
+
+          <div class="row-3">
+            <div class="field">
+              <label for="destination">Destination</label>
+              <input id="destination" type="text" placeholder="e.g., Singapore / Bali / Europe" />
+            </div>
+            <div class="field">
+              <label for="depart">Departure City</label>
+              <input id="depart" type="text" placeholder="e.g., Delhi / Mumbai" />
+            </div>
+            <div class="field">
+              <label for="tripType">Trip Type</label>
+              <select id="tripType">
+                <option>Leisure</option>
+                <option>Business</option>
+                <option>Honeymoon</option>
+                <option>Family</option>
+                <option>Group</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row-3">
+            <div class="field">
+              <label for="checkin">Check-in</label>
+              <input id="checkin" type="date" required />
+            </div>
+            <div class="field">
+              <label for="checkout">Check-out</label>
+              <input id="checkout" type="date" required />
+            </div>
+            <div class="field">
+              <label>Nights</label>
+              <input id="nights" type="text" readonly value="—" />
+              <div class="hint">Calculated automatically</div>
+            </div>
+          </div>
+
+          <div class="row-4">
+            <div class="field">
+              <label for="adults">Adults</label>
+              <select id="adults">
+                <option>1</option><option selected>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="children">Children (2-11)</label>
+              <select id="children">
+                <option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="infants">Infants (&lt;2)</label>
+              <select id="infants">
+                <option selected>0</option><option>1</option><option>2</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rooms">Rooms</label>
+              <select id="rooms">
+                <option selected>1</option><option>2</option><option>3</option><option>4</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="totals">
+            <span class="pill">Total Travellers: <b id="totalTrav">2</b></span>
+            <span class="pill">Rooms: <b id="roomsBadge">1</b></span>
+          </div>
+
+          <div class="row-3">
+            <div class="field">
+              <label for="stars">Hotel Category</label>
+              <select id="stars">
+                <option selected>3★</option><option>4★</option><option>5★</option><option>Apartment/Villa</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budget">Budget (per person)</label>
+              <input id="budget" type="text" placeholder="e.g., ₹45,000" />
+            </div>
+            <div class="field">
+              <label for="visa">Visa Assistance</label>
+              <select id="visa">
+                <option selected>Required</option>
+                <option>Not Required</option>
+                <option>Unsure</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="msg">Special Requests / Notes</label>
+            <textarea id="msg" placeholder="Food preferences, preferred airlines, must-see spots, anniversaries, etc."></textarea>
+          </div>
+
+          <div class="inline">
+            <button type="submit" class="btn primary">Send on WhatsApp</button>
+            <span class="hint">We’ll reply within minutes during working hours.</span>
+          </div>
+        </form>
+      </section>
+
+      <aside class="aside">
+        <div class="note">
+          <b class="badge">Why Book With Us</b>
+          <ul style="margin:10px 0 0;padding-left:18px">
+            <li>Transparent pricing — no hidden fees</li>
+            <li>Visa & insurance guidance</li>
+            <li>Instant WhatsApp support</li>
+            <li>Handpicked stays & tours</li>
+          </ul>
+        </div>
+        <div class="note">
+          Prefer a call? <br><a href="{% url 'contact' %}" style="font-weight:800;color:#0b1220;text-decoration:none">Contact us →</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+    {% include "hello/partials/footer.html" %}
+
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const pkg = params.get('package');
+    if (pkg){
+      document.getElementById('pageTitle').textContent = 'Enquiry: ' + pkg;
+      document.getElementById('pageLead').textContent = 'Please fill out the form below for the ' + pkg + ' package.';
+      document.getElementById('formTitle').textContent = 'Your Details for ' + pkg;
+    }
+
+    const checkin = document.getElementById('checkin');
+    const checkout = document.getElementById('checkout');
+    const nightsEl = document.getElementById('nights');
+    const today = new Date().toISOString().split('T')[0];
+    checkin.min = today;
+    checkout.min = today;
+
+    function calcNights(){
+      if(!checkin.value || !checkout.value){ nightsEl.value = '—'; return; }
+      const ci = new Date(checkin.value);
+      const co = new Date(checkout.value);
+      if(co <= ci){
+
+        const fixed = new Date(ci); fixed.setDate(ci.getDate()+1);
+        checkout.value = fixed.toISOString().split('T')[0];
+      }
+      const ms = new Date(checkout.value) - new Date(checkin.value);
+      const nights = Math.round(ms/86400000);
+      nightsEl.value = nights + (nights === 1 ? ' night' : ' nights');
+    }
+    checkin.addEventListener('change', ()=>{ checkout.min = checkin.value; calcNights(); });
+    checkout.addEventListener('change', calcNights);
+
+    const adults = document.getElementById('adults');
+    const children = document.getElementById('children');
+    const infants = document.getElementById('infants');
+    const roomsSel = document.getElementById('rooms');
+    const totalTrav = document.getElementById('totalTrav');
+    const roomsBadge = document.getElementById('roomsBadge');
+    function updateTotals(){
+      const total = (+adults.value)+(+children.value)+(+infants.value);
+      totalTrav.textContent = total;
+      roomsBadge.textContent = roomsSel.value;
+    }
+    adults.addEventListener('change', updateTotals);
+    children.addEventListener('change', updateTotals);
+    infants.addEventListener('change', updateTotals);
+    roomsSel.addEventListener('change', updateTotals);
+    updateTotals();
+
+    document.getElementById('enquiryForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const name  = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const msg   = document.getElementById('msg').value.trim();
+      const destination = document.getElementById('destination').value.trim();
+      const depart = document.getElementById('depart').value.trim();
+      const tripType = document.getElementById('tripType').value;
+      const visa = document.getElementById('visa').value;
+      const stars = document.getElementById('stars').value;
+      const budget = document.getElementById('budget').value.trim();
+
+      const nights = nightsEl.value;
+      const pax = totalTrav.textContent;
+      const rooms = roomsSel.value;
+
+      const yourNumber = '911234567890'; // <— replace with your WhatsApp number
+
+      const lines = [
+        `New Trip Enquiry`,
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
+        `Package: ${pkg || 'General Enquiry'}`,
+        `Destination: ${destination || '—'}`,
+        `Departure City: ${depart || '—'}`,
+        `Trip Type: ${tripType}`,
+        `Dates: ${checkin.value || '—'} to ${checkout.value || '—'} (${nights})`,
+        `Travellers: ${pax} | Adults ${adults.value}, Children ${children.value}, Infants ${infants.value}`,
+        `Rooms: ${rooms}`,
+        `Hotel Category: ${stars}`,
+        `Budget (per person): ${budget || '—'}`,
+        `Visa Assistance: ${visa}`,
+        `Notes: ${msg || '—'}`
+      ];
+
+      const url = `https://wa.me/${yourNumber}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank');
+    });
+
+    (function(){
+      const mm=document.getElementById('mobileMenu');
+      let hb=document.querySelector('.hamburger');
+      if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+      if(!hb){
+        const bar=document.querySelector('.topbar .nav');
+        if(bar){
+          hb=document.createElement('button');
+          hb.className='hamburger';
+          hb.setAttribute('aria-label','Menu');
+          hb.setAttribute('aria-expanded','false');
+          hb.textContent='☰';
+          const actions=bar.querySelector('.actions');
+          if(actions){ actions.after(hb); } else { bar.appendChild(hb); }
+        }
+      }
+      function openMenu(){ if(!mm||!hb) return; mm.classList.add('open'); document.body.classList.add('menu-open'); hb.setAttribute('aria-expanded','true'); mm.setAttribute('aria-hidden','false'); }
+      function closeMenu(){ if(!mm||!hb) return; mm.classList.remove('open'); document.body.classList.remove('menu-open'); hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); }
+      if(hb) hb.addEventListener('click', openMenu);
+      const closeBtn=document.getElementById('closeMenu');
+      if(closeBtn) closeBtn.addEventListener('click', e=>{e.preventDefault(); closeMenu();});
+      if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+      window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+    })();
+  </script>
+</body>
+</html>

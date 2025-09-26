@@ -1,0 +1,41 @@
+<header class="topbar {% if user.is_authenticated %}logged-in{% endif %}">
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="{% url 'home' %}"  class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'packages' %}" class="{% if request.resolver_match.url_name == 'packages' %}active{% endif %}">Packages</a>
+      <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+      <a href="{% url 'help' %}" class="{% if request.resolver_match.url_name == 'help' %}active{% endif %}">Help</a>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
+        <a href="{% url 'signup' %}" class="{% if request.resolver_match.url_name == 'signup' %}active{% endif %}">Signup</a>
+      {% endif %}
+      <a href="#" id="closeMenu">Close ✕</a>
+    </nav>
+  </div>
+
+  <div class="container nav">
+    <a class="logo" href="{% url 'home' %}">Book <span>My</span> Trip</a>
+    <nav class="menu">
+      <a href="{% url 'home' %}"  class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'packages' %}" class="{% if request.resolver_match.url_name == 'packages' %}active{% endif %}">Packages</a>
+      <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+      <a href="{% url 'help' %}" class="{% if request.resolver_match.url_name == 'help' %}active{% endif %}">Help</a>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
+        <a href="{% url 'signup' %}" class="{% if request.resolver_match.url_name == 'signup' %}active{% endif %}">Signup</a>
+      {% endif %}
+    </nav>
+    <div class="actions"><button class="btn ghost">EN</button></div>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</header>

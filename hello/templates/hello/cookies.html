@@ -1,0 +1,146 @@
+{% extends "hello/base.html" %}
+{% load static %}
+
+{% block title %}Cookies • Book My Trip{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'hello/cookies.css' %}">
+<style>
+  .cookies-heading {
+    text-align: center;
+    font-size: 46px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.1;
+    position: relative;
+  }
+  .cookies-heading::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--brand);
+    margin: 2px auto 0;
+    border-radius: 2px;
+  }
+  .cookies-sub {
+    text-align: center;
+    font-size: 18px;
+    color: var(--muted);
+    margin-top: 8px;
+    margin-bottom: 40px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+ {% include "hello/partials/header.html" %}
+
+
+<main>
+  <section class="container section">
+    <h1 class="cookies-heading">Cookies Policy</h1>
+    <p class="cookies-sub">Understand how we use cookies to enhance your experience.</p>
+
+    <p class="text-block">
+      This Cookies Policy explains how <strong>Book My Trip</strong> uses cookies and similar
+      technologies when you visit our website. By using our site, you agree to the use of cookies
+      as described here.
+    </p>
+
+    <h2 class="section-title">1. What Are Cookies?</h2>
+    <p class="text-block">
+      Cookies are small text files that are placed on your device when you visit a website.
+      They help us remember your preferences, improve performance, and provide a better user experience.
+    </p>
+
+    <h2 class="section-title">2. Types of Cookies We Use</h2>
+    <ul class="text-block" style="list-style:disc; margin-left:20px;">
+      <li><b>Essential Cookies</b> – Required for basic website functionality, such as navigation and security.</li>
+      <li><b>Performance Cookies</b> – Help us understand how visitors use our site so we can improve it.</li>
+      <li><b>Functional Cookies</b> – Remember your preferences, like language and region.</li>
+      <li><b>Advertising Cookies</b> – Used to deliver relevant ads and measure their effectiveness.</li>
+    </ul>
+
+    <h2 class="section-title">3. Why We Use Cookies</h2>
+    <p class="text-block">
+      We use cookies to make our website easier to use, personalize content, analyze traffic,
+      and provide targeted advertising. Cookies help us offer you a seamless booking experience.
+    </p>
+
+    <h2 class="section-title">4. Managing Your Cookies</h2>
+    <p class="text-block">
+      You can manage or disable cookies in your browser settings. Please note that disabling cookies
+      may affect certain features of our website, including the ability to book or enquire about packages.
+    </p>
+
+    <h2 class="section-title">5. Third-Party Cookies</h2>
+    <p class="text-block">
+      Some cookies may be set by trusted third-party services we use, such as Google Analytics or
+      advertising partners. These help us measure performance and deliver relevant promotions.
+    </p>
+
+    <h2 class="section-title">6. Updates to This Policy</h2>
+    <p class="text-block">
+      We may update this Cookies Policy from time to time. Any changes will be posted on this page
+      with an updated revision date. We encourage you to review this policy regularly.
+    </p>
+
+    <h2 class="section-title">7. Contact Us</h2>
+    <p class="text-block">
+      If you have any questions about how we use cookies, please contact us at:<br>
+      <b>Email:</b> support@bookmytrip.vip<br>
+      <b>Phone:</b> +447413034998
+    </p>
+  </section>
+</main>
+
+  {% include "hello/partials/footer.html" %}
+
+
+<script>
+(function(){
+  const mm=document.getElementById('mobileMenu');
+  let hb=document.querySelector('.hamburger');
+
+  if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+
+  if(!hb){
+    const bar=document.querySelector('.topbar .nav')||document.querySelector('header');
+    if(bar){
+      hb=document.createElement('button');
+      hb.className='hamburger';
+      hb.setAttribute('aria-label','Menu');
+      hb.setAttribute('aria-expanded','false');
+      hb.textContent='☰';
+      hb.style.background='transparent';
+      hb.style.border='0';
+      hb.style.fontSize='24px';
+      hb.style.marginLeft='8px';
+      const actions=bar.querySelector('.actions');
+      if(actions){ actions.after(hb); } else { bar.appendChild(hb); }
+    }
+  }
+
+  function openMenu(){
+    if(!mm||!hb) return;
+    mm.classList.add('open');
+    document.body.classList.add('menu-open');
+    hb.setAttribute('aria-expanded','true');
+    mm.setAttribute('aria-hidden','false');
+  }
+  function closeMenu(){
+    if(!mm||!hb) return;
+    mm.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    hb.setAttribute('aria-expanded','false');
+    mm.setAttribute('aria-hidden','true');
+  }
+
+  if(hb) hb.addEventListener('click', openMenu);
+  const closeBtn=document.getElementById('closeMenu');
+  if(closeBtn) closeBtn.addEventListener('click', e=>{e.preventDefault(); closeMenu();});
+  if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+})();
+</script>
+{% endblock %}

@@ -4,17 +4,16 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "u4g)zjev(bb$qxk_h9%a002&t3v+21ibqt2l2t^qckrnwubrk1")
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-
+# --- Static allowed hosts ---
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "bookmytrip.onrender.com",   
-    "bookmytrip.vip",          
-    "www.bookmytrip.vip",      
+    "bookmytrip.onrender.com",
+    "bookmytrip.vip",
+    "www.bookmytrip.vip",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -22,21 +21,15 @@ CSRF_TRUSTED_ORIGINS = [
     "https://bookmytrip.vip",
     "https://www.bookmytrip.vip",
 ]
-# --- Render dynamic host allow ---
+
+# --- Render dynamic hostname support ---
 RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_HOST:
-    # e.g. "bookmytrip-django-1xme.onrender.com"
     if RENDER_HOST not in ALLOWED_HOSTS:
         ALLOWED_HOSTS.append(RENDER_HOST)
-
-    # also trust it for CSRF (https only in production)
     origin = f"https://{RENDER_HOST}"
-    if "CSRF_TRUSTED_ORIGINS" in globals():
-        if origin not in CSRF_TRUSTED_ORIGINS:
-            CSRF_TRUSTED_ORIGINS.append(origin)
-    else:
-        CSRF_TRUSTED_ORIGINS = [origin]
-
+    if origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(origin)
 
 
 INSTALLED_APPS = [
@@ -51,7 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware", 
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -61,7 +54,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "mysite.urls"
-
 
 TEMPLATES = [
     {
@@ -90,7 +82,6 @@ DATABASES = {
     )
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -98,12 +89,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 USE_TZ = True
-
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]

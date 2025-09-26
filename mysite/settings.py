@@ -7,16 +7,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "u4g)zjev(bb$qxk_h9%a002&t3v+21ibqt2l2t^qckrnwubrk1")
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-# --- Static allowed hosts ---
+# --- Allowed hosts ---
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    ".onrender.com",             # ✅ allow all Render subdomains
     "bookmytrip.onrender.com",
     "bookmytrip.vip",
     "www.bookmytrip.vip",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",    # ✅ trust all Render subdomains
     "https://bookmytrip.onrender.com",
     "https://bookmytrip.vip",
     "https://www.bookmytrip.vip",

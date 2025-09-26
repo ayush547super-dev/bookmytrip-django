@@ -22,6 +22,21 @@ CSRF_TRUSTED_ORIGINS = [
     "https://bookmytrip.vip",
     "https://www.bookmytrip.vip",
 ]
+# --- Render dynamic host allow ---
+RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_HOST:
+    # e.g. "bookmytrip-django-1xme.onrender.com"
+    if RENDER_HOST not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(RENDER_HOST)
+
+    # also trust it for CSRF (https only in production)
+    origin = f"https://{RENDER_HOST}"
+    if "CSRF_TRUSTED_ORIGINS" in globals():
+        if origin not in CSRF_TRUSTED_ORIGINS:
+            CSRF_TRUSTED_ORIGINS.append(origin)
+    else:
+        CSRF_TRUSTED_ORIGINS = [origin]
+
 
 
 INSTALLED_APPS = [

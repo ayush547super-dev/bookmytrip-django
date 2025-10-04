@@ -7,24 +7,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "u4g)zjev(bb$qxk_h9%a002&t3v+21ibqt2l2t^qckrnwubrk1")
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-# --- Allowed hosts ---
+
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    ".onrender.com",             # ✅ allow all Render subdomains
+    ".onrender.com",             
     "bookmytrip.onrender.com",
     "bookmytrip.vip",
     "www.bookmytrip.vip",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.onrender.com",    # ✅ trust all Render subdomains
+    "https://*.onrender.com",    
     "https://bookmytrip.onrender.com",
     "https://bookmytrip.vip",
     "https://www.bookmytrip.vip",
 ]
 
-# --- Render dynamic hostname support ---
+
 RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_HOST:
     if RENDER_HOST not in ALLOWED_HOSTS:

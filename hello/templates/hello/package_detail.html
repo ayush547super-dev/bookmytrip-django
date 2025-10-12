@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ package.title }} • Book My Trip</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f6f7f8; --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --brand:#ffd200; --brand-d:#141414; --card:#fff; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.65}
+
+    /* Topbar shell (your header include provides content) */
+    .topbar{position:sticky;top:0;z-index:60;backdrop-filter:saturate(1.2) blur(10px);
+      background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.06)}
+    .container{width:min(1180px,92%);margin:auto}
+    .nav{display:flex;align-items:center;gap:14px;min-height:64px}
+    .hamburger{display:none}
+    @media (max-width:980px){
+      .hamburger{display:block;background:transparent;border:0;font-size:24px;line-height:1;padding:6px 8px;margin-left:8px}
+    }
+
+    /* Hero */
+    .hero{position:relative;height:46vh;min-height:280px;border-bottom:1px solid var(--line);overflow:hidden}
+    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.35))}
+    .cap{position:relative;z-index:2;height:100%;display:grid;align-content:end;padding:20px}
+    .cap .inner{width:min(1180px,92%);margin:0 auto 8px}
+    .title{font-size:38px;line-height:1.1;font-weight:800;color:#fff;margin:0 0 6px}
+    .sub{color:#e5e7eb}
+    .crumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .crumbs a,.crumbs span{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);color:#fff;
+      padding:6px 12px;border-radius:999px;text-decoration:none;font-weight:700}
+
+    /* Main */
+    .section{padding:30px 0}
+    .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:22px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 22px rgba(15,23,42,.08)}
+    .card-body{padding:18px}
+
+    h2.h{font-size:22px;margin:0 0 8px}
+    .muted{color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+    .pillrow{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+
+    .list{display:grid;gap:8px;margin:10px 0 0}
+    .list li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+    .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+
+    .itn-day{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+    .itn-day h4{margin:0 0 6px;font-size:16px}
+    .itn-day p{margin:0;color:var(--muted)}
+
+    .pricebox h3{font-size:26px;margin:0}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;border-radius:12px;cursor:pointer;text-decoration:none}
+    .btn.primary{background:var(--brand-d);color:#fff;border:0;padding:12px 16px}
+    .btn.alt{background:var(--brand);color:var(--brand-d);border:0;padding:12px 16px}
+    .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
+    .fact{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}
+    .small{font-size:14px}
+    .divline{height:1px;background:var(--line);margin:12px 0}
+
+    /* Footer */
+    .site-footer{background:linear-gradient(180deg,#0b1430,#0b1120); color:#e5e7eb; margin-top:34px}
+    .footer-top{padding:28px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    .fgrid{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr;gap:20px}
+    .fbrand h4{margin:0 0 8px;color:#ffd166}
+    .fbrand p{margin:0;color:#cbd5e1}
+    .fcol h4{margin:0 0 10px;color:#ffd166}
+    .fcol ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .fcol a{color:#e5e7eb;text-decoration:none}
+    .fcol a:hover{color:#fff}
+    .foot-bottom{padding:14px 0;color:#94a3b8;font-size:14px}
+
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} .fgrid{grid-template-columns:1fr 1fr} }
+    @media (max-width:600px){ .fgrid{grid-template-columns:1fr} }
+
+    /* Mobile menu overlay (same behavior as other pages) */
+    .mobile-menu{display:none !important;}
+    .mobile-menu.open{display:block !important;}
+    @media (max-width:980px){
+      .mobile-menu{
+        position:fixed; inset:0; background:rgba(0,0,0,.60);
+        z-index:2147483647; opacity:0; pointer-events:none; transition:opacity .24s ease;
+      }
+      .mobile-menu.open{opacity:1; pointer-events:auto;}
+      .mobile-menu nav{
+        position:fixed; top:0; right:0; bottom:0; width:min(86vw,320px);
+        background:#fff; transform:translate3d(100%,0,0);
+        transition:transform .28s ease; will-change:transform;
+        padding:max(20px, env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 18px 18px;
+        overflow:auto; -webkit-overflow-scrolling:touch;
+        box-shadow:-6px 0 24px rgba(0,0,0,.25);
+      }
+      .mobile-menu.open nav{transform:translate3d(0,0,0);}
+      .mobile-menu nav a{
+        display:block; margin:14px 0; font-weight:700; font-size:16px;
+        color:#0b1220 !important; text-decoration:none;
+      }
+      #closeMenu{color:#ef4444 !important; font-weight:800; margin-top:20px;}
+      body.menu-open{overflow:hidden; position:relative; height:100%; touch-action:none;}
+    }
+  </style>
+</head>
+<body>
+
+  {% include "hello/partials/header.html" %}
+
+  <!-- HERO -->
+  <section class="hero">
+    {% if package.image %}
+      <img src="{{ package.image.url }}" alt="{{ package.title }}">
+    {% else %}
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop" alt="{{ package.title }}">
+    {% endif %}
+    <div class="veil"></div>
+    <div class="cap">
+      <div class="inner">
+        <div class="crumbs">
+          <a href="{% url 'packages' %}">← All Packages</a>
+          <span>{{ package.get_category_display }}</span>
+          <span>{{ package.destination.country }}</span>
+        </div>
+        <h1 class="title">{{ package.title }}</h1>
+        <p class="sub">{{ package.destination.name }}, {{ package.destination.country }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container section">
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="card">
+        <div class="card-body">
+          <h2 class="h">Overview</h2>
+          <p class="muted">
+            {% if package.description %}{{ package.description }}
+            {% else %}
+              Discover the best of {{ package.destination.name }} with a well-paced itinerary that balances iconic sights and free time. Handpicked stays, guided tours, and smooth transfers ensure a comfortable experience throughout.
+            {% endif %}
+          </p>
+
+          <div class="pillrow">
+            <span class="pill">⭐ Top pick</span>
+            <span class="pill">👨‍👩‍👧 Suitable for families</span>
+            <span class="pill">🕓 Flexible dates</span>
+          </div>
+
+          <div class="divline"></div>
+
+          <h2 class="h">Highlights</h2>
+          <ul class="list two">
+            <li>Airport pickup & drop (private)</li>
+            <li>Comfortable stays (3★/4★ options)</li>
+            <li>Daily breakfast at hotel</li>
+            <li>Signature city tour with guide</li>
+            <li>Iconic viewpoint / landmark visit</li>
+            <li>Leisure time for shopping & cafes</li>
+          </ul>
+
+          <div class="divline"></div>
+
+          <h2 class="h">Inclusions</h2>
+          <ul class="list two">
+            <li>Accommodation with daily breakfast</li>
+            <li>Sightseeing as per itinerary</li>
+            <li>All transfers on SIC/private basis</li>
+            <li>English-speaking guide for key tours</li>
+            <li>All taxes & basic service charges</li>
+          </ul>
+
+          <h2 class="h" style="margin-top:14px">Exclusions</h2>
+          <ul class="list two">
+            <li>International / domestic flights</li>
+            <li>Visa fees (if applicable)</li>
+            <li>Personal expenses, tips, and porterage</li>
+            <li>Meals not mentioned</li>
+            <li>Optional activities & entrances not listed</li>
+          </ul>
+
+          <div class="divline"></div>
+
+          <h2 class="h">Sample Itinerary (suggested)</h2>
+          <div class="two">
+            <div class="itn-day">
+              <h4>Day 1 — Arrival & Check-in</h4>
+              <p>Meet at the airport and transfer to hotel. Evening at leisure around {{ package.destination.name }}.</p>
+            </div>
+            <div class="itn-day">
+              <h4>Day 2 — City Highlights</h4>
+              <p>Guided tour covering key landmarks, photo stops, and local markets.</p>
+            </div>
+            <div class="itn-day">
+              <h4>Day 3 — Signature Experience</h4>
+              <p>Iconic attraction/park/boat tour. Optional add-on activities in the evening.</p>
+            </div>
+            <div class="itn-day">
+              <h4>Day 4 — Free Day</h4>
+              <p>Leisure for cafes, shopping, or optional excursions.</p>
+            </div>
+            <div class="itn-day">
+              <h4>Day 5 — Departure</h4>
+              <p>Check-out and transfer to airport. Fly back with great memories.</p>
+            </div>
+          </div>
+
+          <div class="divline"></div>
+
+          <h2 class="h">Good to Know</h2>
+          <ul class="list">
+            <li>Itinerary can be customized based on travel dates and interests.</li>
+            <li>Peak season surcharges may apply on holidays/festivals.</li>
+            <li>Hotel category upgrades (4★/5★) available on request.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT: Price + CTA -->
+      <aside class="card">
+        <div class="card-body">
+          <div class="pricebox">
+            <h3>From ₹{{ package.price }}</h3>
+            <div class="small muted">Per traveler • Taxes included</div>
+          </div>
+
+          <div class="pillrow" style="margin:12px 0 8px">
+            <span class="pill">🧾 GST invoice on request</span>
+            <span class="pill">💬 WhatsApp support</span>
+          </div>
+
+          {% if package.is_available %}
+            <a class="btn primary" href="{% url 'book_package' slug=package.slug %}" style="margin-top:6px">Book Now</a>
+          {% else %}
+            <div class="pill" style="margin-top:6px">Currently Unavailable</div>
+          {% endif %}
+          <a class="btn alt" href="{% url 'enquiry' %}?package={{ package.title|urlencode }}" style="margin-top:10px">Enquire</a>
+
+          <div class="divline"></div>
+
+          <div class="facts">
+            <div class="fact"><b>Destination</b><br>{{ package.destination.name }}</div>
+            <div class="fact"><b>Country</b><br>{{ package.destination.country }}</div>
+            <div class="fact"><b>Category</b><br>{{ package.get_category_display }}</div>
+            <div class="fact"><b>Status</b><br>{% if package.is_available %}Available{% else %}Closed{% endif %}</div>
+          </div>
+
+          <p class="small muted" style="margin-top:10px">
+            Need flights or visa help? We can bundle them with your package.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  {% include "hello/partials/footer.html" %}
+
+  <!-- Mobile menu logic (same as other pages) -->
+  <script>
+    (function(){
+      const mm=document.getElementById('mobileMenu');
+      let hb=document.querySelector('.hamburger');
+
+      if(mm && mm.parentNode!==document.body){ document.body.appendChild(mm); }
+
+      if(!hb){
+        const bar=document.querySelector('.topbar .nav')||document.querySelector('header');
+        if(bar){
+          hb=document.createElement('button');
+          hb.className='hamburger';
+          hb.setAttribute('aria-label','Menu');
+          hb.setAttribute('aria-expanded','false');
+          hb.textContent='☰';
+          hb.style.background='transparent';
+          hb.style.border='0';
+          hb.style.fontSize='24px';
+          hb.style.marginLeft='8px';
+          const actions=bar.querySelector('.actions');
+          if(actions){ actions.after(hb); } else { bar.appendChild(hb); }
+        }
+      }
+
+      function openMenu(){ if(!mm||!hb) return; mm.classList.add('open'); document.body.classList.add('menu-open');
+        hb.setAttribute('aria-expanded','true'); mm.setAttribute('aria-hidden','false'); }
+      function closeMenu(){ if(!mm||!hb) return; mm.classList.remove('open'); document.body.classList.remove('menu-open');
+        hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); }
+
+      if(hb) hb.addEventListener('click', openMenu);
+      const closeBtn=document.getElementById('closeMenu');
+      if(closeBtn) closeBtn.addEventListener('click', e=>{e.preventDefault(); closeMenu();});
+      if(mm) mm.addEventListener('click', e=>{ if(e.target===mm) closeMenu(); });
+      window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+    })();
+  </script>
+</body>
+</html>
